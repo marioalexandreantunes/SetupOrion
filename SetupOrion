@@ -15710,7 +15710,7 @@ services:
       - INIT_PASSWORD=
       - CONSOLE_API_URL=https://$url_dify_api ## Url Dify API
       - SERVICE_API_URL=https://$url_dify_api ## Url Dify API
-      - FILES_URL=
+      - FILES_URL=https://$url_dify_api ## Url Dify API
 
       ## Url Dify
       - APP_WEB_URL=https://$url_dify ## Url Dify Web
