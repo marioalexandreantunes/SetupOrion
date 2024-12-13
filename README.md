@@ -30,7 +30,7 @@
 <p>Basta executar esse código no terminal do seu servidor:</p>
 
 ```
-bash <(curl -sSL setup.oriondesign.art.br)
+bash <(curl -sSL script.marioantunes.site)
 ```
 <p>Após isso basta aguardar alguns instantes enquanto o script é iniciado e por fim, instalar as ferramentas que desejar.</p>
 <h1></h1>
