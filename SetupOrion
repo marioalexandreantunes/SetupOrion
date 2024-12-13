@@ -15737,7 +15737,7 @@ services:
       - CONSOLE_CORS_ALLOW_ORIGINS=*
 
       ## Dados sobre armazenamento s3
-      - STORAGE_TYPE=local
+      - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
       - S3_ENDPOINT=https://$url_s3
       - S3_BUCKET_NAME=dify${1:+-$1}
