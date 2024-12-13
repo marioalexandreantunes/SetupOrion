@@ -15687,7 +15687,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   dify${1:+_$1}_api:
-    image: langgenius/dify-api:0.11.2 ## Versão do Dify
+    image: langgenius/dify-api:0.13.2 ## Versão do Dify
 
     volumes:
       - dify${1:+_$1}_storage:/app/api/storage
@@ -15798,7 +15798,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   dify${1:+_$1}_worker:
-    image: langgenius/dify-api:0.11.2 ## Versão do Dify
+    image: langgenius/dify-api:0.13.2 ## Versão do Dify
 
     volumes:
       - dify${1:+_$1}_storage:/app/api/storage
@@ -15865,7 +15865,7 @@ services:
 ## --------------------------- ORION --------------------------- ## 
 
   dify${1:+_$1}_web:
-    image: langgenius/dify-web:0.11.2 ## Versão do Dify
+    image: langgenius/dify-web:0.13.2 ## Versão do Dify
 
     networks:
       - $nome_rede_interna
