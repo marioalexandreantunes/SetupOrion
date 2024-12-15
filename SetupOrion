@@ -15737,6 +15737,7 @@ services:
       - CONSOLE_CORS_ALLOW_ORIGINS=*
 
       ## Dados sobre armazenamento s3
+      ## Supported values are `local` , `s3`
       - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
       - S3_ENDPOINT=https://$url_s3
@@ -15832,9 +15833,16 @@ services:
       - REDIS_DB=0
       - CELERY_BROKER_URL=redis://redis:6379/1
 
-      ## Dados Weaviate
-      - STORAGE_TYPE=local
+      ## Dados sobre armazenamento s3
+      ## Supported values are `local` , `s3`
+      - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
+      - S3_ENDPOINT=https://$url_s3
+      - S3_BUCKET_NAME=dify${1:+-$1}
+      - S3_ACCESS_KEY=$S3_ACCESS_KEY
+      - S3_SECRET_KEY=$S3_SECRET_KEY
+
+      ## Dados Weaviate
       - VECTOR_STORE=weaviate
       - WEAVIATE_ENDPOINT=http://dify${1:+_$1}_weaviate:8080
       - WEAVIATE_API_KEY=$token_weaviate
