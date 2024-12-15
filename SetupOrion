@@ -15737,13 +15737,17 @@ services:
       - CONSOLE_CORS_ALLOW_ORIGINS=*
 
       ## Dados sobre armazenamento s3
-      ## Supported values are `local` , `s3`
+      ## Supported values are 'local' , 's3' , 'supabase'
+      ## relembrando que s3 é minIO e supabase tem vatagem de ser gratis (1Gb capaciadade e cada ficheiro com max. 50 MB)
       - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
       - S3_ENDPOINT=https://$url_s3
       - S3_BUCKET_NAME=dify${1:+-$1}
       - S3_ACCESS_KEY=$S3_ACCESS_KEY
       - S3_SECRET_KEY=$S3_SECRET_KEY
+      - SUPABASE_BUCKET_NAME=
+      - SUPABASE_API_KEY=
+      - SUPABASE_URL=
 
       ## Configurações do Sandbox
       - CODE_EXECUTION_ENDPOINT=http://dify${1:+_$1}_sandbox:8194
@@ -15834,13 +15838,17 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/1
 
       ## Dados sobre armazenamento s3
-      ## Supported values are `local` , `s3`
+      ## Supported values are 'local' , 's3' , 'supabase'
+      ## relembrando que s3 é minIO e supabase tem vatagem de ser gratis (1Gb capaciadade e cada ficheiro com max. 50 MB)
       - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
       - S3_ENDPOINT=https://$url_s3
       - S3_BUCKET_NAME=dify${1:+-$1}
       - S3_ACCESS_KEY=$S3_ACCESS_KEY
       - S3_SECRET_KEY=$S3_SECRET_KEY
+      - SUPABASE_BUCKET_NAME=
+      - SUPABASE_API_KEY=
+      - SUPABASE_URL=
 
       ## Dados Weaviate
       - VECTOR_STORE=weaviate
