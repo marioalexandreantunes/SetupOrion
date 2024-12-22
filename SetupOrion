@@ -3331,7 +3331,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   postgres:
-    image: postgres:14 ## Versão do postgres
+    image: postgres:14.15 ## Versão do postgres
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -3457,7 +3457,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   postgres${1:+_$1}:
-    image: postgres:14 ## Versão do postgres
+    image: postgres:14.15 ## Versão do postgres
 
     volumes:
       - postgres${1:+_$1}_data:/var/lib/postgresql/data
@@ -12817,7 +12817,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   odoo${1:+_$1}_db:
-    image: postgres:15
+    image: postgres:15.10
 
     volumes:
       - odoo${1:+_$1}_db_data:/var/lib/postgresql/data/pgdata
