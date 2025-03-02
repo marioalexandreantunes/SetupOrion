@@ -6,7 +6,7 @@
 
 versao() {
 echo -e "                                   \e[97mVersão do SetupOrion: \e[32mv. 2.6.3\e[0m                                  "
-echo -e "\e[32moriondesign.art.br/whatsapp1      \e[97m<----- Grupos no WhatsApp ----->     \e[32moriondesign.art.br/whatsapp2\e[0m"
+echo -e "\e[32moriondesign.art.br/whatsapp2      \e[97m<----- Grupos no WhatsApp ----->     \e[32moriondesign.art.br/whatsapp3\e[0m"
 }
 
 ## // ## // ## // ## // ## // ## // ## // ## //## // ## // ## // ## // ## // ## // ## // ## // ##
@@ -135,7 +135,7 @@ creditos_msg() {
     echo -e "$amarelo=                       $branco Nossa comunidade:$amarelo https://join.oriondesign.art.br                        $amarelo=\e[0m"
     echo -e "$amarelo=                                                                                                 $amarelo=\e[0m"
     echo -e "$amarelo=                                   $branco Nossos grupos no WhatsApp                                    $amarelo=\e[0m"
-    echo -e "$amarelo=      $amarelo https://oriondesign.art.br/whatsapp1 $branco<-- ou -->$amarelo https://oriondesign.art.br/whatsapp2      $amarelo=\e[0m"
+    echo -e "$amarelo=      $amarelo https://oriondesign.art.br/whatsapp2 $branco<-- ou -->$amarelo https://oriondesign.art.br/whatsapp3      $amarelo=\e[0m"
     echo -e "$amarelo=                                                                                                 $amarelo=\e[0m"
     echo -e "$amarelo===================================================================================================\e[0m"
     echo ""
@@ -1407,6 +1407,27 @@ nome_krayincrm() {
     echo ""
 }
 
+nome_transcrevezap(){
+    clear
+    echo ""
+    echo ""
+    echo -e "$branco        ████████╗██████╗  █████╗ ███╗   ██╗███████╗ ██████╗██████╗ ███████╗██╗   ██╗███████╗\e[0m"
+    echo -e "$branco        ╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝██╔════╝██╔══██╗██╔════╝██║   ██║██╔════╝\e[0m"
+    echo -e "$branco           ██║   ██████╔╝███████║██╔██╗ ██║███████╗██║     ██████╔╝█████╗  ██║   ██║█████╗  \e[0m"
+    echo -e "$branco           ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║██║     ██╔══██╗██╔══╝  ╚██╗ ██╔╝██╔══╝  \e[0m"
+    echo -e "$branco           ██║   ██║  ██║██║  ██║██║ ╚████║███████║╚██████╗██║  ██║███████╗ ╚████╔╝ ███████╗\e[0m"
+    echo -e "$branco           ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚══════╝\e[0m"
+    echo -e "$branco                                                                                            \e[0m"
+    echo -e "$branco                                        ███████╗ █████╗ ██████╗                             \e[0m"
+    echo -e "$branco                                        ╚══███╔╝██╔══██╗██╔══██╗                            \e[0m"
+    echo -e "$branco                                          ███╔╝ ███████║██████╔╝                            \e[0m"
+    echo -e "$branco                                         ███╔╝  ██╔══██║██╔═══╝                             \e[0m"
+    echo -e "$branco                                        ███████╗██║  ██║██║                                 \e[0m"
+    echo -e "$branco                                        ╚══════╝╚═╝  ╚═╝╚═╝                                 \e[0m"
+    echo ""
+    echo ""
+}
+
 # ===================================================================================================
 
 
@@ -2635,6 +2656,61 @@ um novo banco de dados? (Y/N): " resposta
 ##                                         ORION DESIGN                                        ##
 ## // ## // ## // ## // ## // ## // ## // ## //## // ## // ## // ## // ## // ## // ## // ## // ##
 
+validar_senha() { 
+    senha=$1
+    tamanho_minimo=$2
+    tem_erro=0
+    mensagem_erro=""
+
+    # Verifica comprimento mínimo
+    if [ ${#senha} -lt $tamanho_minimo ]; then
+        mensagem_erro+="\n- Senha precisa ter no mínimo $tamanho_minimo caracteres"
+        tem_erro=1
+    fi
+
+    # Verifica letra maiúscula
+    if ! [[ $senha =~ [A-Z] ]]; then
+        mensagem_erro+="\n- Falta pelo menos uma letra maiúscula"
+        tem_erro=1
+    fi
+
+    # Verifica letra minúscula
+    if ! [[ $senha =~ [a-z] ]]; then
+        mensagem_erro+="\n- Falta pelo menos uma letra minúscula"
+        tem_erro=1
+    fi
+
+    # Verifica número
+    if ! [[ $senha =~ [0-9] ]]; then
+        mensagem_erro+="\n- Falta pelo menos um número"
+        tem_erro=1
+    fi
+
+    # Verifica caracteres especiais permitidos
+    if ! [[ $senha =~ [@_] ]]; then
+        mensagem_erro+="\n- Falta pelo menos um caractere especial (@ ou _)"
+        tem_erro=1
+    fi
+
+    # Verifica caracteres não permitidos
+    if [[ $senha =~ [^A-Za-z0-9@_] ]]; then
+        mensagem_erro+="\n- Contém caracteres especiais não permitidos (use apenas @ ou _)"
+        tem_erro=1
+    fi
+
+    # Se houver erro, mostra as mensagens
+    if [ $tem_erro -eq 1 ]; then
+        echo -e "Senha inválida! Corrija os seguintes problemas:$mensagem_erro"
+        return 1
+    fi
+
+    return 0
+}
+
+## // ## // ## // ## // ## // ## // ## // ## //## // ## // ## // ## // ## // ## // ## // ## // ##
+##                                         ORION DESIGN                                        ##
+## // ## // ## // ## // ## // ## // ## // ## //## // ## // ## // ## // ## // ## // ## // ## // ##
+
 ## Instalação das Ferramentas
 
 ## ████████╗███████╗███████╗████████╗███████╗    ███████╗███╗   ███╗████████╗██████╗ 
@@ -2773,24 +2849,43 @@ preencha_as_info
 while true; do
 
     ##Pergunta o Dominio para aplicação
-    echo -e "\e[97mPasso$amarelo 1/4\e[0m"
+    echo -e "\e[97mPasso$amarelo 1/6\e[0m"
     echo -en "\e[33mDigite o Dominio para o Portainer (ex: portainer.oriondesign.art.br): \e[0m" && read -r url_portainer
     echo ""
 
+    ##Pergunta o Dominio para aplicação
+    echo -e "\e[97mPasso$amarelo 2/6\e[0m"
+    echo -en "\e[33mDigite um usuario para o Portainer (ex: admin): \e[0m" && read -r user_portainer
+    echo ""
+
+    ##Pergunta o Dominio para aplicação
+    while true; do
+      echo -e "\e[97mPasso$amarelo 3/6\e[0m"
+      echo -e "$amarelo--> Minimo 12 caracteres. Use Letras MAIUSCULAS e minusculas, numero e um caractere especial @ ou _"
+      echo -e "$amarelo--> Evite os caracteres especiais como: \!#$"
+      echo -en "\e[33mDigite uma senha para o Portainer (ex: @Senha123456_): \e[0m" && read -r pass_portainer
+      echo ""
+
+      if validar_senha "$pass_portainer" 12; then
+          break
+      fi
+      echo ""
+    done
+
     ## Pergunta o Nome do Servidor
-    echo -e "\e[97mPasso$amarelo 2/4\e[0m"
+    echo -e "\e[97mPasso$amarelo 4/6\e[0m"
     echo -e "$amarelo--> Não pode conter Espaços e/ou cartacteres especiais"
     echo -en "\e[33mEscolha um nome para o seu servidor (ex: OrionDesign): \e[0m" && read -r nome_servidor
     echo ""
     
     ## Pergunta o nome da Rede Interna
-    echo -e "\e[97mPasso$amarelo 3/4\e[0m"
+    echo -e "\e[97mPasso$amarelo 5/6\e[0m"
     echo -e "$amarelo--> Não pode conter Espaços e/ou cartacteres especiais."
     echo -en "\e[33mDigite um nome para sua rede interna (ex: OrionNet): \e[0m" && read -r nome_rede_interna
     echo ""
     
     ## Pergunta o Email para informações sobre o certificado
-    echo -e "\e[97mPasso$amarelo 4/4\e[0m"
+    echo -e "\e[97mPasso$amarelo 6/6\e[0m"
     echo -en "\e[33mDigite um endereço de Email válido (ex: contato@oriondesign.art.br): \e[0m" && read -r email_ssl
     echo ""
 
@@ -2805,6 +2900,14 @@ while true; do
 
     ## Informação sobre URL
     echo -e "\e[33mLink do Portainer:\e[97m $url_portainer\e[0m"
+    echo ""
+
+    ## Informação sobre URL
+    echo -e "\e[33mUsuario do Portainer:\e[97m $user_portainer\e[0m"
+    echo ""
+
+    ## Informação sobre URL
+    echo -e "\e[33mSenha do Portainer:\e[97m $pass_portainer\e[0m"
     echo ""
 
     ## Informação sobre Nome do Servidor
@@ -2852,7 +2955,7 @@ while true; do
 done
 
 ## Mensagem de Passo
-echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO TRAEFIK \e[33m[1/8]\e[0m"
+echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO TRAEFIK \e[33m[1/9]\e[0m"
 echo ""
 sleep 1
 
@@ -2905,7 +3008,7 @@ cd
 dados
 
 ## Mensagem de Passo
-echo -e "\e[97m• ATUALIZANDO E CONFIGURANDO A VPS \e[33m[2/8]\e[0m"
+echo -e "\e[97m• ATUALIZANDO E CONFIGURANDO A VPS \e[33m[2/9]\e[0m"
 echo ""
 sleep 1
 
@@ -2974,7 +3077,7 @@ fi
 echo ""
 
 ## Mensagem de Passo
-echo -e "\e[97m• INSTALANDO DOCKER SWARM \e[33m[3/8]\e[0m"
+echo -e "\e[97m• INSTALANDO DOCKER SWARM \e[33m[3/9]\e[0m"
 echo ""
 sleep 1
 
@@ -2984,7 +3087,7 @@ telemetria Docker iniciado
 
 
 #ip=$(curl -s ifconfig.me)
-read -r ip _ <<<$(hostname -I)
+read -r ip _ <<<$(hostname -I | tr ' ' '\n' | grep -v '^127\.0\.0\.1' | tr '\n' ' ')
 if [ $? -eq 0 ]; then
     echo "1/3 - [ OK ] - Pegando IP $ip"
 else
@@ -3028,7 +3131,7 @@ echo ""
 telemetria Docker finalizado
 
 ## Mensagem de Passo
-echo -e "\e[97m• CRIANDO REDE INTERNA \e[33m[4/8]\e[0m"
+echo -e "\e[97m• CRIANDO REDE INTERNA \e[33m[4/9]\e[0m"
 echo ""
 sleep 1
 
@@ -3043,7 +3146,7 @@ fi
 echo ""
 
 ## Mensagem de Passo
-echo -e "\e[97m• INSTALANDO TRAEFIK \e[33m[5/8]\e[0m"
+echo -e "\e[97m• INSTALANDO TRAEFIK \e[33m[5/9]\e[0m"
 echo ""
 sleep 1
 
@@ -3146,7 +3249,7 @@ fi
 
 echo ""
 ## Mensagem de Passo
-echo -e "\e[97m• ESPERANDO O TRAEFIK ESTAR ONLINE \e[33m[6/8]\e[0m"
+echo -e "\e[97m• ESPERANDO O TRAEFIK ESTAR ONLINE \e[33m[6/9]\e[0m"
 echo ""
 sleep 1
 
@@ -3158,7 +3261,7 @@ telemetria Traefik finalizado
 wait_30_sec
 
 ## Mensagem de Passo
-echo -e "\e[97m• INSTALANDO PORTAINER \e[33m[7/8]\e[0m"
+echo -e "\e[97m• INSTALANDO PORTAINER \e[33m[7/9]\e[0m"
 echo ""
 sleep 1
 
@@ -3250,18 +3353,86 @@ fi
 
 echo ""
 ## Mensagem de Passo
-echo -e "\e[97m• ESPERANDO O PORTAINER ESTAR ONLINE \e[33m[8/8]\e[0m"
+echo -e "\e[97m• ESPERANDO O PORTAINER ESTAR ONLINE \e[33m[8/9]\e[0m"
 echo ""
 sleep 1
 
 ## Usa o serviço wait_portainer para verificar se o serviço esta online
 wait_stack "portainer"
 
+sleep 5
+
 telemetria Portainer finalizado
+
+echo ""
+## Mensagem de Passo
+echo -e "\e[97m• CRIANDO CONTA NO PORTAINER \e[33m[9/9]\e[0m"
+echo ""
+sleep 1
+
+## Tenta criar usuário no Portainer até 4 vezes
+MAX_RETRIES=4
+DELAY=15  # Delay de 15 segundos entre as tentativas
+CONTA_CRIADA=false
+
+for i in $(seq 1 $MAX_RETRIES); do
+  RESPONSE=$(curl -k -s -X POST "https://$url_portainer/api/users/admin/init" \
+    -H "Content-Type: application/json" \
+    -d "{\"Username\": \"$user_portainer\", \"Password\": \"$pass_portainer\"}")
+
+  # Verificar se o campo "Username" existe na resposta
+  if echo "$RESPONSE" | grep -q "\"Username\":\"$user_portainer\""; then
+    echo "1/2 - [ OK ] - Conta de administrador criada com sucesso!"
+    CONTA_CRIADA=true
+    break
+  else
+    echo "Falha ao criar a conta de administrador na tentativa $i/4."
+    # Se for a última tentativa, exibe mensagem de erro final
+    if [ $i -eq $MAX_RETRIES ]; then
+      echo "1/2 - [ OFF ] - Não foi possível criar a conta de administrador após $MAX_RETRIES tentativas."
+      echo "Erro retornado: $RESPONSE"
+      echo -e "\e[33mApós a conclusão da instalação, por favor, crie uma conta acessando o link do seu Portainer"
+      CONTA_CRIADA=false
+    fi
+    sleep $DELAY
+  fi
+done
+
+# Só tenta criar o token se a conta foi criada com sucesso
+if [ "$CONTA_CRIADA" = true ]; then
+  sleep 5
+  ## Cria primeiro token do Portainer
+  token=$(curl -k -s -X POST "https://$url_portainer/api/auth" \
+    -H "Content-Type: application/json" \
+    -d "{\"username\":\"$user_portainer\",\"password\":\"$pass_portainer\"}" | jq -r .jwt)
+  
+  # Verifica se o token foi gerado com sucesso
+  if [ -n "$token" ] && [ "$token" != "null" ]; then
+    echo "2/2 - [ OK ] - Gerando primeiro token"
+  else
+    echo "2/2 - [ OFF ] - Falha ao gerar o token"
+    exit 1
+  fi
+fi
+
+sleep 5
 ## Salvando informações da instalação dentro de /dados_vps/
 cd dados_vps
 
-cat > dados_portainer <<EOL
+if [ "$CONTA_CRIADA" = true ]; then
+  cat > dados_portainer <<EOL
+[ PORTAINER ]
+
+Dominio do portainer: https://$url_portainer
+
+Usuario: $user_portainer
+
+Senha: $pass_portainer
+
+Token: $token
+EOL
+else
+  cat > dados_portainer <<EOL
 [ PORTAINER ]
 
 Dominio do portainer: https://$url_portainer
@@ -3270,6 +3441,7 @@ Usuario: Precisa criar dentro do portainer
 
 Senha: Precisa criar dentro do portainer
 EOL
+fi
 
 cd
 cd
@@ -3290,15 +3462,24 @@ echo ""
 echo -e "\e[97mDominio do portainer:\e[33m https://$url_portainer\e[0m"
 echo ""
 
-echo -e "\e[97mUsuario:\e[33m Precisa criar dentro do portainer\e[0m"
-echo ""
+if [ "$CONTA_CRIADA" = true ]; then
+  echo -e "\e[97mUsuario:\e[33m $user_portainer\e[0m"
+  echo ""
+  echo -e "\e[97mSenha:\e[33m $pass_portainer\e[0m"
+else
+  echo -e "\e[97mUsuario:\e[33m Precisa criar dentro do portainer\e[0m"
+  echo ""
+  echo -e "\e[97mSenha:\e[33m Precisa criar dentro do portainer\e[0m"
+  echo ""
+  echo -e "\e[97mObservação:\e[33m Você tem menos de 5 minutos para criar uma conta no Portainer, caso\e[0m"
+  echo -e "\e[33mexceda esse tempo, você precisara de voltar no menu anterior (digitando: Y)\e[0m"
+  echo -e "\e[33me no menu de ferramentas digitar: \e[97mportainer.restart\e[0m"
+fi
+#echo ""
 
-echo -e "\e[97mSenha:\e[33m Precisa criar dentro do portainer\e[0m"
-echo ""
-
-echo -e "\e[97mObservação:\e[33m Você tem menos de 5 minutos para criar uma conta no Portainer, caso\e[0m"
-echo -e "\e[33mexceda esse tempo, você precisara de voltar no menu anterior (digitando: Y)\e[0m"
-echo -e "\e[33me no menu de ferramentas digitar: \e[97mportainer.restart\e[0m"
+#echo -e "\e[97mObservação:\e[33m Você tem menos de 5 minutos para criar uma conta no Portainer, caso\e[0m"
+#echo -e "\e[33mexceda esse tempo, você precisara de voltar no menu anterior (digitando: Y)\e[0m"
+#echo -e "\e[33me no menu de ferramentas digitar: \e[97mportainer.restart\e[0m"
 
 ## Creditos do instalador
 creditos_msg
@@ -3457,7 +3638,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   postgres${1:+_$1}:
-    image: postgres:14.15 ## Versão do postgres
+    image: postgres:15.12 ## Versão do postgres
 
     volumes:
       - postgres${1:+_$1}_data:/var/lib/postgresql/data
@@ -4175,6 +4356,8 @@ stack_editavel #> /dev/null 2>&1
 #    echo "Ops, não foi possivel subir a stack do Postgres."
 #fi
 
+wait_stack "mysql${1:+_$1}"
+
 #docker stack deploy --prune --resolve-image always -c mysql.yaml mysql #> /dev/null 2>&1
 
 ## Salvando informações da instalação dentro de /dados_vps/
@@ -4185,10 +4368,9 @@ cat > dados_mysql <<EOL
 
 Dominio do mysql: mysql
 
-Usuario: mysql ou root
+Usuario: root
 
 Senha: $senha_mysql
-
 EOL
 
 cd
@@ -4302,7 +4484,8 @@ else
     echo "Ops, não foi criar a stack do Mysql."
 fi
 
-STACK_NAME="mysql${1:+_$1}"
+STACK_NAME="mysql"
+
 stack_editavel
 
 ## Mensagem de Passo
@@ -4310,7 +4493,7 @@ echo -e "\e[97m• VERIFICANDO SERVIÇO \e[33m[3/3]\e[0m"
 echo ""
 sleep 1
 
-wait_stack "mysql${1:+_$1}"
+wait_stack "mysql" > /dev/null 2>&1
 
 telemetria MySQL finalizado
 #if [ $? -eq 0 ]; then
@@ -10157,6 +10340,7 @@ services:
 
     ## Dados Postgress
       - DATABASE_URL=postgresql://postgres:$senha_postgres@postgres:5432/calcom${1:+_$1}
+      - DATABASE_DIRECT_URL=postgresql://postgres:$senha_postgres@postgres:5432/calcom${1:+_$1}
       - CALENDSO_ENCRYPTION_KEY=postgresql://postgres:$senha_postgres@postgres:5432/calcom${1:+_$1}
 
     ## Configurações de Email e SMTP
@@ -12817,7 +13001,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   odoo${1:+_$1}_db:
-    image: postgres:15.10
+    image: postgres:15.12
 
     volumes:
       - odoo${1:+_$1}_db_data:/var/lib/postgresql/data/pgdata
@@ -13154,7 +13338,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   chatwoot_nestor${1:+_$1}_app:
-    image: sendingtk/chatwoot:latest ## Versão do Chatwoot
+    image: sendingtk/chatwoot:v3.14.2 ## Versão do Chatwoot
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     entrypoint: docker/entrypoints/rails.sh
 
@@ -13261,7 +13445,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   chatwoot_nestor${1:+_$1}_sidekiq:
-    image: sendingtk/chatwoot:latest ## Versão do Chatwoot
+    image: sendingtk/chatwoot:v3.14.2 ## Versão do Chatwoot
     command: bundle exec sidekiq -C config/sidekiq.yml
 
     volumes:
@@ -15711,7 +15895,7 @@ services:
       - INIT_PASSWORD=
       - CONSOLE_API_URL=https://$url_dify_api ## Url Dify API
       - SERVICE_API_URL=https://$url_dify_api ## Url Dify API
-      - FILES_URL=https://$url_dify_api ## Url Dify API
+      - FILES_URL=https://$url_dify_api
 
       ## Url Dify
       - APP_WEB_URL=https://$url_dify ## Url Dify Web
@@ -15743,8 +15927,6 @@ services:
       - CONSOLE_CORS_ALLOW_ORIGINS=*
 
       ## Dados sobre armazenamento s3
-      ## Supported values are 'local' , 's3' , 'supabase'
-      ## relembrando que s3 é minIO e supabase tem vatagem de ser gratis (1Gb capaciadade e cada ficheiro com max. 50 MB)
       - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
       - S3_ENDPOINT=https://$url_s3
@@ -15757,11 +15939,13 @@ services:
 
       ## Configurações do Sandbox
       - CODE_EXECUTION_ENDPOINT=http://dify${1:+_$1}_sandbox:8194
+      - CODE_EXECUTION_API_KEY=$sandbox_key
       - CODE_MAX_NUMBER=9223372036854775807
       - CODE_MIN_NUMBER=-9223372036854775808
       - CODE_MAX_DEPTH=5
       - CODE_MAX_PRECISION=20
       - CODE_MAX_STRING_LENGTH=80000
+      - TEMPLATE_TRANSFORM_MAX_LENGTH=80000
       - CODE_MAX_STRING_ARRAY_LENGTH=30
       - CODE_MAX_OBJECT_ARRAY_LENGTH=30
       - CODE_MAX_NUMBER_ARRAY_LENGTH=1000
@@ -15823,7 +16007,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   dify${1:+_$1}_worker:
-    image: langgenius/dify-api:0.15.3 ## Versão do Dify
+    image: langgenius/dify-api:1.0.0 ## Versão do Dify
 
     volumes:
       - dify${1:+_$1}_storage:/app/api/storage
@@ -15843,9 +16027,19 @@ services:
 
       ## Logs
       - LOG_LEVEL=INFO
-      
+
       ## Secret Key
       - SECRET_KEY=$secret_key
+
+      ## Outras Url (vazio = mesmo do APP_WEB_URL)
+      - CONSOLE_WEB_URL=https://$url_dify ## Url Dify Web
+      - INIT_PASSWORD=
+      - CONSOLE_API_URL=https://$url_dify_api ## Url Dify API
+      - SERVICE_API_URL=https://$url_dify_api ## Url Dify API
+      - FILES_URL=https://$url_dify_api
+
+      ## Url Dify
+      - APP_WEB_URL=https://$url_dify ## Url Dify Web
 
       ## Dados Postgres
       - MIGRATION_ENABLED=true
@@ -15869,18 +16063,28 @@ services:
       - REDIS_DB=0
       - CELERY_BROKER_URL=redis://redis:6379/1
 
+      ## Liberar acesso a todos os ip
+      - WEB_API_CORS_ALLOW_ORIGINS=*
+      - CONSOLE_CORS_ALLOW_ORIGINS=*
+
       ## Dados sobre armazenamento s3
-      ## Supported values are 'local' , 's3' , 'supabase'
-      ## relembrando que s3 é minIO e supabase tem vatagem de ser gratis (1Gb capaciadade e cada ficheiro com max. 50 MB)
       - STORAGE_TYPE=s3
       - STORAGE_LOCAL_PATH=storage
       - S3_ENDPOINT=https://$url_s3
       - S3_BUCKET_NAME=dify${1:+-$1}
       - S3_ACCESS_KEY=$S3_ACCESS_KEY
       - S3_SECRET_KEY=$S3_SECRET_KEY
-      - SUPABASE_BUCKET_NAME=
-      - SUPABASE_API_KEY=
-      - SUPABASE_URL=
+
+      ## Configurações do Sandbox
+      - CODE_EXECUTION_ENDPOINT=http://dify${1:+_$1}_sandbox:8194
+      - CODE_EXECUTION_API_KEY=$sandbox_key
+      - CODE_MAX_NUMBER=9223372036854775807
+      - CODE_MIN_NUMBER=-9223372036854775808
+      - CODE_MAX_STRING_LENGTH=80000
+      - TEMPLATE_TRANSFORM_MAX_LENGTH=80000
+      - CODE_MAX_STRING_ARRAY_LENGTH=30
+      - CODE_MAX_OBJECT_ARRAY_LENGTH=30
+      - CODE_MAX_NUMBER_ARRAY_LENGTH=1000
 
       ## Dados Weaviate
       - VECTOR_STORE=weaviate
@@ -15895,6 +16099,11 @@ services:
       - SMTP_PORT=$porta_smtp_dify
       - SMTP_USERNAME=$user_email_dify
       - SMTP_PASSWORD=$senha_email_dify
+
+      ## Sentry
+      - SENTRY_DSN=
+      - SENTRY_TRACES_SAMPLE_RATE=1.0
+      - SENTRY_PROFILES_SAMPLE_RATE=1.0
 
     depends_on:
       - postgres
@@ -15913,7 +16122,7 @@ services:
 ## --------------------------- ORION --------------------------- ## 
 
   dify${1:+_$1}_web:
-    image: langgenius/dify-web:0.15.3 ## Versão do Dify
+    image: langgenius/dify-web:1.0.0 ## Versão do Dify
 
     networks:
       - $nome_rede_interna
@@ -17008,12 +17217,11 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.routers.directus${1:+_$1}.rule=Host(\`$url_directus\`)
-        - traefik.http.routers.directus${1:+_$1}.entrypoints=web,websecure
-        - traefik.http.routers.directus${1:+_$1}.tls.certresolver=letsencryptresolve
-        - traefik.http.routers.directus${1:+_$1}.service=directus${1:+_$1}
-        - traefik.http.routers.directus${1:+_$1}.tls=true
         - traefik.http.services.directus${1:+_$1}.loadbalancer.server.port=8055
-        - traefik.docker.network=proxy
+        - traefik.http.routers.directus${1:+_$1}.service=directus${1:+_$1}
+        - traefik.http.routers.directus${1:+_$1}.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.directus${1:+_$1}.entrypoints=websecure
+        - traefik.http.routers.directus${1:+_$1}.tls=true
 
 ## --------------------------- ORION --------------------------- ##
 
@@ -18403,7 +18611,7 @@ while true; do
     echo ""
 
     ## Informação sobre URL do Viewer
-    echo -e "\e[33mUsuaraio:\e[97m $user_supabase\e[0m"
+    echo -e "\e[33mUsuario:\e[97m $user_supabase\e[0m"
     echo ""
 
     ## Informação sobre a versão da ferramenta
@@ -25792,7 +26000,7 @@ while true; do
 done
 
 ## Mensagem de Passo
-echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO FIRECRAWL \e[33m[1/3]\e[0m"
+echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO FIRECRAWL \e[33m[1/4]\e[0m"
 echo ""
 sleep 1
 
@@ -25801,7 +26009,21 @@ telemetria Firecrawl iniciado
 ## Nadaaaaa
 
 ## Mensagem de Passo
-echo -e "\e[97m• INSTALANDO FIRECRAWL \e[33m[2/3]\e[0m"
+echo -e "\e[97m• VERIFICANDO/INSTALANDO REDIS \e[33m[2/4]\e[0m"
+echo ""
+sleep 1
+
+## Verifica/instala o Redis
+verificar_container_redis
+if [ $? -eq 0 ]; then
+    echo "1/1 - [ OK ] - Redis já instalado"
+    echo ""
+else
+    ferramenta_redis
+fi
+
+## Mensagem de Passo
+echo -e "\e[97m• INSTALANDO FIRECRAWL \e[33m[3/4]\e[0m"
 echo ""
 sleep 1
 
@@ -25975,7 +26197,7 @@ stack_editavel # > /dev/null 2>&1
 #fi
 
 ## Mensagem de Passo
-echo -e "\e[97m• VERIFICANDO SERVIÇO \e[33m[3/3]\e[0m"
+echo -e "\e[97m• VERIFICANDO SERVIÇO \e[33m[4/4]\e[0m"
 echo ""
 sleep 1
 
@@ -25990,6 +26212,8 @@ cat > dados_firecrawl${1:+_$1} <<EOL
 [ FIRECRAWL ]
 
 Dominio do firecrawl: https://$url_firecrawl
+
+API Key: $apikey_firecrawl
 EOL
 
 cd
@@ -26141,7 +26365,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
  wuzapi${1:+_$1}:
-  image: ruben18salazar/wuzapi:api
+  image: setupautomatizado/wuzapi-server:latest
 
   volumes:
     - wuzapi${1:+_$1}_dbdata:/app/dbdata
@@ -26397,7 +26621,7 @@ while true; do
 done
 
 ## Mensagem de Passo
-echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO KRAYIN CRM \e[33m[1/4]\e[0m"
+echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO KRAYIN CRM \e[33m[1/6]\e[0m"
 echo ""
 sleep 1
 
@@ -26406,7 +26630,7 @@ telemetria "Krayin CRM" "iniciado"
 ## Nadaaaaa
 
 ## Mensagem de Passo
-echo -e "\e[97m• VERIFICANDO/INSTALANDO MYSQL \e[33m[2/4]\e[0m"
+echo -e "\e[97m• VERIFICANDO/INSTALANDO MYSQL \e[33m[2/6]\e[0m"
 echo ""
 sleep 1
 
@@ -26418,27 +26642,64 @@ verificar_container_mysql
         echo "1/3 - [ OK ] - MySQL já instalado"
         pegar_senha_mysql > /dev/null 2>&1
         echo "2/3 - [ OK ] - Copiando senha do MySQL"
-        #criar_banco_mysql_da_stack "krayincrm${1:+_$1}"
+        criar_banco_mysql_da_stack "krayin${1:+_$1}"
         echo "3/3 - [ OK ] - Criando banco de dados"
-        echo ""
     else
         ferramenta_mysql
         pegar_senha_mysql > /dev/null 2>&1
-        #criar_banco_mysql_da_stack "krayincrm${1:+_$1}"
+        criar_banco_mysql_da_stack "krayin${1:+_$1}"
     fi
-
-sleep 40
-docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "
-CREATE DATABASE krayin${1:+_$1} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER 'orion'@'%' IDENTIFIED BY 'design';
-GRANT ALL PRIVILEGES ON krayin${1:+_$1}.* TO 'orion'@'%';
-FLUSH PRIVILEGES;" > /dev/null 2>&1
 
 sleep 5
 
+## Mensagem de Passo
+echo -e "\e[97m• VERIFICANDO/INSTALANDO REDIS \e[33m[3/6]\e[0m"
+echo ""
+sleep 1
+
+## Verifica/instala o Redis
+verificar_container_redis
+if [ $? -eq 0 ]; then
+    echo "1/1 - [ OK ] - Redis já instalado"
+    echo ""
+else
+    ferramenta_redis
+fi
+
+# Criação do banco de dados
+#docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "CREATE DATABASE krayin${1:+_$1} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;" > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "1/4 - [ OK ] - Criação do banco de dados"
+#else
+#    echo "1/10 - [ OFF ] - Criação do banco de dados"
+#fi
+#
+## Criação do usuário
+#docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "CREATE USER 'orion'@'%' IDENTIFIED BY 'design';" > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "2/4 - [ OK ] - Criação do usuário"
+#else
+#    echo "2/4 - [ OFF ] - Criação do usuário"
+#fi
+## Concessão de privilégios ao usuário
+#docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "GRANT ALL PRIVILEGES ON krayin${1:+_$1}.* TO 'orion'@'%';" > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "3/4 - [ OK ] - Concessão de privilégios ao usuário"
+#else
+#    echo "3/4 - [ OFF ] - Concessão de privilégios ao usuário"
+#fi
+## Atualização dos privilégios
+#docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "FLUSH PRIVILEGES;" > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "4/4 - [ OK ] - Atualização dos privilégios"
+#else
+#    echo "4/4 - [ OFF ] - Atualização dos privilégios"
+#fi
+#sleep 5
+
 
 ## Mensagem de Passo
-echo -e "\e[97m• INSTALANDO KRAYIN CRM \e[33m[3/4]\e[0m"
+echo -e "\e[97m• INSTALANDO KRAYIN CRM \e[33m[4/6]\e[0m"
 echo ""
 sleep 1
 
@@ -26451,7 +26712,7 @@ services:
   ## --------------------------- ORION --------------------------- ##
 
   krayin${1:+_$1}:
-    image: webkul/krayin:2.0.1
+    image: webkul/krayin:2.0.4
 
     volumes:
       - krayin${1:+_$1}_data:/var/www/html/laravel-crm
@@ -26461,21 +26722,24 @@ services:
       
     environment:
       ## Dados de acesso
+      - krayin_PUBLIC_URL=https://$url_krayincrm
       - APP_URL=https://$url_krayincrm
+      - krayin_CADDY_ADDRESSES=:80
       - APP_ENV=production
       - APP_KEY=$secret_key
       - APP_DEBUG=false
       - APP_TIMEZONE=America/Sao_Paulo
       - APP_LOCALE=pt_BR
       - APP_CURRENCY=BRL
+      - SANCTUM_STATEFUL_DOMAINS=https://$url_krayincrm/public
 
       ## Configuração do Banco de Dados
       - DB_CONNECTION=mysql
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_DATABASE=krayin${1:+_$1}
-      - DB_USERNAME=orion
-      - DB_PASSWORD=design
+      - DB_USERNAME=root
+      - DB_PASSWORD=$senha_mysql
       - DB_PREFIX=
 
       ## Configurações de e-mail
@@ -26495,6 +26759,7 @@ services:
 
       ## Configurações de Redis
       - REDIS_HOST=redis
+      - REDIS_PASSWORD=null
       - REDIS_PORT=6379
 
     deploy:
@@ -26545,13 +26810,29 @@ stack_editavel # > /dev/null 2>&1
 #fi
 
 ## Mensagem de Passo
-echo -e "\e[97m• VERIFICANDO SERVIÇO \e[33m[4/4]\e[0m"
+echo -e "\e[97m• VERIFICANDO SERVIÇO \e[33m[5/6]\e[0m"
 echo ""
 sleep 1
 
 ## Usa o serviço wait_krayincrm para verificar se o serviço esta online
 wait_stack "krayincrm${1:+_$1}"
 
+## Mensagem de Passo
+echo -e "\e[97m• APLICANDO CONFIGURAÇÕES \e[33m[6/6]\e[0m"
+echo ""
+sleep 1
+
+## Executa o comando artisan krayin-crm:install
+docker exec -it -e APP_NAME="Krayin CRM" -e APP_URL="https://$url_krayincrm" -e APP_TIMEZONE="America/Sao_Paulo" -e APP_LOCALE="pt_BR" -e APP_CURRENCY="BRL" -e DB_CONNECTION="mysql" -e DB_HOST="mysql" -e DB_PORT="3306" -e DB_DATABASE="krayin${1:+_$1}" -e DB_USERNAME="root" -e DB_PASSWORD="$senha_mysql" "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php /var/www/html/laravel-crm/artisan krayin-crm:install --no-interaction > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "1/10 - [ OK ] - Executando: artisan krayin-crm:install"
+else
+    echo "1/10 - [ OFF ] - Executando: artisan krayin-crm:install"
+fi
+
+sleep 5
+
+## Cria o arquivo AppServiceProvider.php
 cat > AppServiceProvider.php <<EOL
 <?php
 
@@ -26585,16 +26866,152 @@ class AppServiceProvider extends ServiceProvider
     }
 }
 EOL
-rm /var/lib/docker/volumes/krayin${1:+_$1}_data/_data/app/Providers/AppServiceProvider.php
-mv AppServiceProvider.php /var/lib/docker/volumes/krayin${1:+_$1}_data/_data/app/Providers/AppServiceProvider.php
 
+## Remove o arquivo AppServiceProvider.php errado do dir
+rm /var/lib/docker/volumes/krayin${1:+_$1}_data/_data/app/Providers/AppServiceProvider.php
+if [ $? -eq 0 ]; then
+    echo "2/10 - [ OK ] - Removendo AppServiceProvider"
+else
+    echo "2/10 - [ OFF ] - Removendo AppServiceProvider"
+fi
+
+## Move o arquivo AppServiceProvider.php certo para o dir correspondente
+mv AppServiceProvider.php /var/lib/docker/volumes/krayin${1:+_$1}_data/_data/app/Providers/AppServiceProvider.php
+if [ $? -eq 0 ]; then
+    echo "3/10 - [ OK ] - Adicionando novo AppServiceProvider"
+else
+    echo "3/10 - [ OFF ] - Adicionando novo AppServiceProvider"
+fi
 sleep 5
 
 docker exec -it "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php /var/www/html/laravel-crm/artisan migrate --force > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "4/10 - [ OK ] - Forçando Migração"
+else
+    echo "4/10 - [ OFF ] - Forçando Migração"
+fi
 
-docker exec -it   -e APP_NAME="Krayin CRM"   -e APP_URL="https://$url_krayincrm"   -e APP_TIMEZONE="America/Sao_Paulo"   -e APP_LOCALE="en"   -e APP_CURRENCY="BRL"   -e DB_CONNECTION="mysql"   -e DB_HOST="mysql"   -e DB_PORT="3306"   -e DB_DATABASE="krayin${1:+_$1}"   -e DB_USERNAME="orion"   -e DB_PASSWORD="design"   "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)"   php /var/www/html/laravel-crm/artisan krayin-crm:install --no-interaction > /dev/null 2>&1
+#docker exec -it "$(docker ps --filter 'name=krayincrm_krayin' -q)" php /var/www/html/laravel-crm/artisan migrate --seed --force > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "1/10 - [ OK ] - Forçando Migração"
+#else
+#    echo "1/10 - [ OFF ] - Forçando Migração"
+#fi
 
-docker exec -it "$(docker ps --filter 'name=krayincrm_krayin' -q)" php /var/www/html/laravel-crm/artisan migrate --seed --force > /dev/null 2>&1
+## Adicionado a linha SANCTUM_STATEFUL_DOMAINS
+echo "SANCTUM_STATEFUL_DOMAINS=https://$url_krayincrm/public" >> \
+  /var/lib/docker/volumes/krayin${1:+_$1}_data/_data/.env
+
+# Altera DB_CONNECTION
+sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=mysql/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera DB_HOST
+sed -i 's/^DB_HOST=.*/DB_HOST=mysql/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera DB_PORT
+sed -i 's/^DB_PORT=.*/DB_PORT=3306/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera DB_DATABASE
+sed -i "s/^DB_DATABASE=.*/DB_DATABASE=krayin${1:+_$1}/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera DB_USERNAME
+sed -i 's/^DB_USERNAME=.*/DB_USERNAME=root/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera DB_PASSWORD
+sed -i "s/^DB_PASSWORD=.*/DB_PASSWORD=$senha_mysql/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera DB_PREFIX
+sed -i 's/^DB_PREFIX=.*/DB_PREFIX=/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera REDIS_HOST
+sed -i 's/^REDIS_HOST=.*/REDIS_HOST=redis/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera REDIS_PASSWORD
+sed -i 's/^REDIS_PASSWORD=.*/REDIS_PASSWORD=/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera REDIS_PORT
+sed -i 's/^REDIS_PORT=.*/REDIS_PORT=6379/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_MAILER
+sed -i 's/^MAIL_MAILER=.*/MAIL_MAILER=smtp/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_FROM_ADDRESS
+sed -i "s/^MAIL_FROM_ADDRESS=.*/MAIL_FROM_ADDRESS=$email_krayincrm/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_USERNAME
+sed -i "s/^MAIL_USERNAME=.*/MAIL_USERNAME=$usuario_email_krayincrm/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_PASSWORD
+sed -i "s/^MAIL_PASSWORD=.*/MAIL_PASSWORD=$senha_email_krayincrm/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_HOST
+sed -i "s/^MAIL_HOST=.*/MAIL_HOST=$smtp_email_krayincrm/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_PORT
+sed -i "s/^MAIL_PORT=.*/MAIL_PORT=$porta_smtp_krayincrm/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_ENCRYPTION
+sed -i "s/^MAIL_ENCRYPTION=.*/MAIL_ENCRYPTION=$smtp_secure_krayincrm/" /var/lib/docker/volumes/krayin_data/_data/.env
+
+# Altera MAIL_FROM_NAME
+sed -i 's/^MAIL_FROM_NAME=.*/MAIL_FROM_NAME="Krayin CRM"/' /var/lib/docker/volumes/krayin_data/_data/.env
+
+if [ $? -eq 0 ]; then
+    echo "5/10 - [ OK ] - Preenchendo arquivo .env do Krayin CRM"
+else
+    echo "5/10 - [ OFF ] - Preenchendo arquivo .env do Krayin CRM"
+fi
+
+docker exec $(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q) php /var/www/html/laravel-crm/artisan krayin-crm:install > /dev/null 2>&1
+
+## Ativando API
+docker exec -it "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php /usr/local/bin/composer require krayin/rest-api --working-dir=/var/www/html/laravel-crm > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "6/10 - [ OK ] - Instalando API"
+else
+    echo "6/10 - [ OFF ] - Instalando API"
+fi
+
+## Ativando API
+docker exec -it --workdir /var/www/html/laravel-crm "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php artisan krayin-rest-api:install > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+    echo "7/10 - [ OK ] - Ativando API"
+else
+    echo "7/10 - [ OFF ] - Ativando API"
+fi
+
+## Ativando API
+wget -O /var/lib/docker/volumes/krayin${1:+_$1}_data/_data/packages/Webkul/Admin/src/Resources/lang/en/app.php https://raw.githubusercontent.com/oriondesign2015/SetupOrion/refs/heads/main/Extras/Krayin/app.php > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "8/10 - [ OK ] - Baixando Tradução"
+else
+    echo "8/10 - [ OFF ] - Baixando Tradução"
+fi
+
+#docker service update --force krayincrm${1:+_$1}_krayin > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "9/10 - [ OK ] - Aplicando Tradução"
+#else
+#    echo "9/10 - [ OFF ] - Aplicando Tradução"
+#fi
+#sleep 30
+
+## Limpando Cache
+docker exec -it "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php /var/www/html/laravel-crm/artisan config:clear > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "9/10 - [ OK ] - Limpando Cache"
+else
+    echo "10/10 - [ OFF ] - Limpando Cache"
+fi
+
+## Criando arquivo de cache
+docker exec -it "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php /var/www/html/laravel-crm/artisan config:cache > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "10/10 - [ OK ] - Criando novo arquivo de Cache"
+else
+    echo "10/10 - [ OFF ] - Criando novo arquivo de Cache"
+fi
 
 telemetria "Krayin CRM" "finalizado"
 
@@ -26609,7 +27026,7 @@ Usuario: admin@example.com
 
 Senha: admin123
 
-Apikey: $apikey_krayincrm
+Documentação: https://$url_krayincrm/api/documentation
 EOL
 
 cd
@@ -26635,6 +27052,9 @@ echo -e "\e[33mUsuario:\e[97m admin@example.com\e[0m"
 echo ""
 
 echo -e "\e[33mSenha:\e[97m admin123\e[0m"
+echo ""
+
+echo -e "\e[33mDocumentação:\e[97m https://$url_krayincrm/api/documentation\e[0m"
 
 ## Creditos do instalador
 creditos_msg
@@ -26642,6 +27062,288 @@ creditos_msg
 ## Pergunta se deseja instalar outra aplicação
 requisitar_outra_instalacao
 
+}
+
+## ████████╗██████╗  █████╗ ███╗   ██╗███████╗ ██████╗██████╗ ███████╗██╗   ██╗███████╗
+## ╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝██╔════╝██╔══██╗██╔════╝██║   ██║██╔════╝
+##    ██║   ██████╔╝███████║██╔██╗ ██║███████╗██║     ██████╔╝█████╗  ██║   ██║█████╗  
+##    ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║██║     ██╔══██╗██╔══╝  ╚██╗ ██╔╝██╔══╝  
+##    ██║   ██║  ██║██║  ██║██║ ╚████║███████║╚██████╗██║  ██║███████╗ ╚████╔╝ ███████╗
+##    ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚══════╝
+##                                                                                     
+##                                ███████╗ █████╗ ██████╗                             
+##                                ╚══███╔╝██╔══██╗██╔══██╗                            
+##                                  ███╔╝ ███████║██████╔╝                            
+##                                 ███╔╝  ██╔══██║██╔═══╝                             
+##                                ███████╗██║  ██║██║                                 
+##                                ╚══════╝╚═╝  ╚═╝╚═╝                                 
+
+ferramenta_transcrevezap() {
+
+## Limpa o terminal
+clear
+
+## Ativa a função dados para pegar os dados da vps
+dados
+
+## Mostra o nome da aplicação
+nome_transcrevezap
+
+## Mostra mensagem para preencher informações
+preencha_as_info
+
+## Inicia um Loop até os dados estarem certos
+while true; do
+
+    ##Pergunta o Dominio para a ferramenta
+    echo -e "\e[97mPasso$amarelo 1/4\e[0m"
+    echo -en "\e[33mDigite o dominio para a API do TranscreveZap (ex: apitranscreve.oriondesign.art.br): \e[0m" && read -r api_transcrevezap
+    echo ""
+
+    ##Pergunta o Dominio para a ferramenta
+    echo -e "\e[97mPasso$amarelo 2/4\e[0m"
+    echo -en "\e[33mDigite o dominio para o Manager do TranscreveZap (ex: transcrevezap.oriondesign.art.br): \e[0m" && read -r url_transcrevezap
+    echo ""
+
+    ##Pergunta o Dominio para a ferramenta
+    echo -e "\e[97mPasso$amarelo 3/4\e[0m"
+    echo -en "\e[33mDigite um usuario para o TranscreveZap (ex: OrionDesign): \e[0m" && read -r user_transcrevezap
+    echo ""
+
+    ##Pergunta o Dominio para a ferramenta
+    echo -e "\e[97mPasso$amarelo 4/4\e[0m"
+    echo -en "\e[33mDigite uma senha para o TranscreveZap (ex: @Senha123_): \e[0m" && read -r pass_transcrevezap
+    echo ""
+    
+    ## Limpa o terminal
+    clear
+    
+    ## Mostra o nome da aplicação
+    nome_transcrevezap
+    
+    ## Mostra mensagem para verificar as informações
+    conferindo_as_info
+    
+    ## Informação sobre URL do transcrevezap
+    echo -e "\e[33mDominio da API TranscreveZap:\e[97m $api_transcrevezap\e[0m"
+    echo ""
+
+    ## Informação sobre URL do transcrevezap
+    echo -e "\e[33mDominio do Manager do TranscreveZap:\e[97m $url_transcrevezap\e[0m"
+    echo ""
+
+    ## Informação sobre URL do transcrevezap
+    echo -e "\e[33mUsuario do TranscreveZap:\e[97m $user_transcrevezap\e[0m"
+    echo ""
+
+    ## Informação sobre URL do transcrevezap
+    echo -e "\e[33mSenha do TranscreveZap:\e[97m $pass_transcrevezap\e[0m"
+    echo ""
+    
+    ## Pergunta se as respostas estão corretas
+    read -p "As respostas estão corretas? (Y/N): " confirmacao
+    if [ "$confirmacao" = "Y" ] || [ "$confirmacao" = "y" ]; then
+
+        ## Digitou Y para confirmar que as informações estão corretas
+
+        ## Limpar o terminal
+        clear
+
+        ## Mostrar mensagem de Instalando
+        instalando_msg
+
+        ## Sai do Loop
+        break
+    else
+
+        ## Digitou N para dizer que as informações não estão corretas.
+
+        ## Limpar o terminal
+        clear
+
+        ## Mostra o nome da ferramenta
+        nome_transcrevezap
+
+        ## Mostra mensagem para preencher informações
+        preencha_as_info
+
+    ## Volta para o inicio do loop com as perguntas
+    fi
+done
+
+## Mensagem de Passo
+echo -e "\e[97m• INICIANDO A INSTALAÇÃO DO TRANSCREVEZAP \e[33m[1/3]\e[0m"
+echo ""
+sleep 1
+
+telemetria TranscreveZap iniciado
+
+## Nadaaaaa
+
+## Mensagem de Passo
+echo -e "\e[97m• INSTALANDO TRANSCREVEZAP \e[33m[2/3]\e[0m"
+echo ""
+sleep 1
+
+## Criando a stack transcrevezap.yaml
+cat > transcrevezap${1:+_$1}.yaml <<EOL
+
+version: "3.7"
+services:
+
+## --------------------------- ORION --------------------------- ##
+
+  transcrevezap${1:+_$1}:
+    image: impacteai/transcrevezap:latest
+    command: ./start.sh
+
+    networks:
+      - $nome_rede_interna
+
+    environment:
+      ## Configurações de acesso
+      - MANAGER_USER=$user_transcrevezap
+      - MANAGER_PASSWORD=$pass_transcrevezap
+
+      ## Configurações Globais
+      - API_DOMAIN=$api_transcrevezap
+      - UVICORN_PORT=8005
+      - UVICORN_HOST=0.0.0.0
+      - UVICORN_RELOAD=true
+      - UVICORN_WORKERS=1
+
+      ## Configurações do Redis
+      - REDIS_HOST=redis_transcrevezap${1:+_$1}
+      - REDIS_PORT=6380
+
+      ## Configurações de Debug
+      - DEBUG_MODE=false
+      - LOG_LEVEL=INFO
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.transcrevezap${1:+_$1}.rule=Host(\`$api_transcrevezap\`) ## url do transcrevezap
+        - traefik.http.routers.transcrevezap${1:+_$1}.entrypoints=websecure
+        - traefik.http.routers.transcrevezap${1:+_$1}.tls.certresolver=letsencryptresolver
+        - traefik.http.services.transcrevezap${1:+_$1}.loadbalancer.server.port=8005
+        - traefik.http.services.transcrevezap${1:+_$1}.loadbalancer.passHostHeader=true
+        - traefik.http.routers.transcrevezap${1:+_$1}.service=transcrevezap${1:+_$1}
+        - traefik.http.middlewares.traefik-compress.compress=true
+        - traefik.http.routers.transcrevezap${1:+_$1}.middlewares=traefik-compress
+        - traefik.http.routers.transcrevezap${1:+_$1}_manager.rule=Host(\`$url_transcrevezap\`) ## url do manager do transcrevezap
+        - traefik.http.routers.transcrevezap${1:+_$1}_manager.entrypoints=websecure
+        - traefik.http.routers.transcrevezap${1:+_$1}_manager.tls.certresolver=letsencryptresolver
+        - traefik.http.services.transcrevezap${1:+_$1}_manager.loadbalancer.server.port=8501
+        - traefik.http.routers.transcrevezap${1:+_$1}_manager.service=transcrevezap${1:+_$1}_manager
+
+## --------------------------- ORION --------------------------- ##
+
+  redis_transcrevezap${1:+_$1}:
+    image: redis:6
+    command: [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--port",
+        "6380"
+      ]
+
+    volumes:
+      - redis_transcrevezap${1:+_$1}_data:/data
+
+    networks:
+      - $nome_rede_interna
+
+## --------------------------- ORION --------------------------- ##
+
+volumes:
+  redis_transcrevezap${1:+_$1}_data:
+    external: true
+    name: redis_transcrevezap${1:+_$1}_data
+
+networks:
+  $nome_rede_interna:
+    external: true
+    name: $nome_rede_interna
+EOL
+
+if [ $? -eq 0 ]; then
+    echo "1/10 - [ OK ] - Criando Stack"
+else
+    echo "1/10 - [ OFF ] - Criando Stack"
+    echo "Não foi possivel criar a stack do TranscreveZap"
+fi
+STACK_NAME="transcrevezap${1:+_$1}"
+stack_editavel # > /dev/null 2>&1
+#docker stack deploy --prune --resolve-image always -c transcrevezap.yaml transcrevezap > /dev/null 2>&1
+#if [ $? -eq 0 ]; then
+#    echo "2/2 - [ OK ] - Deploy Stack"
+#else
+#    echo "2/2 - [ OFF ] - Deploy Stack"
+#    echo "Não foi possivel Subir a stack do transcrevezap"
+#fi
+
+## Mensagem de Passo
+echo -e "\e[97m• VERIFICANDO SERVIÇO \e[33m[3/3]\e[0m"
+echo ""
+sleep 1
+
+## Usa o serviço wait_transcrevezap para verificar se o serviço esta online
+wait_stack "transcrevezap${1:+_$1}"
+
+telemetria TranscreveZap finalizado
+
+cd dados_vps
+
+cat > dados_transcrevezap${1:+_$1} <<EOL
+[ TRANSCREVEZAP ]
+
+Url API do TranscreveZap: https://$api_transcrevezap
+
+Url Manager do TranscreveZap: https://$url_transcrevezap
+
+Usuario: $user_transcrevezap
+
+Senha: $pass_transcrevezap
+EOL
+cd
+cd
+
+## Espera 30 segundos
+wait_30_sec
+
+## Mensagem de finalizado
+instalado_msg
+
+## Mensagem de Guarde os Dados
+guarde_os_dados_msg
+
+## Dados da Aplicação:
+echo -e "\e[32m[ TRANSCREVEZAP ]\e[0m"
+echo ""
+
+echo -e "\e[33mLink do Manager:\e[97m https://$url_transcrevezap\e[0m"
+echo ""
+
+echo -e "\e[33mLink da API:\e[97m https://$api_transcrevezap\e[0m"
+echo ""
+
+echo -e "\e[33mUsuario:\e[97m $user_transcrevezap\e[0m"
+echo ""
+
+echo -e "\e[33mSenha:\e[97m $pass_transcrevezap\e[0m"
+
+## Creditos do instalador
+creditos_msg
+
+## Pergunta se deseja instalar outra aplicação
+requisitar_outra_instalacao
 }
 
 ## Ignore esta parte, só para facilitar minha identificação com esta parte "XXOOXX"
@@ -27128,11 +27830,11 @@ krayin.fix(){
       echo "1/4 - [ OFF ] - Pegando URL do Krayin CRM"
   fi
 
-docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "
-CREATE DATABASE $DB_VAR CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER 'orion'@'%' IDENTIFIED BY 'design';
-GRANT ALL PRIVILEGES ON $DB_VAR.* TO 'orion'@'%';
-FLUSH PRIVILEGES;" > /dev/null 2>&1
+#docker exec -it "$(docker ps --filter "name=^mysql_mysql" -q)" mysql -u root -p"$senha_mysql" -e "
+#CREATE DATABASE $DB_VAR CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+#CREATE USER 'orion'@'%' IDENTIFIED BY 'design';
+#GRANT ALL PRIVILEGES ON $DB_VAR.* TO 'orion'@'%';
+#FLUSH PRIVILEGES;" > /dev/null 2>&1
 
 
   docker exec -it "$(docker ps --filter "name=krayincrm${1:+_$1}_krayin" -q)" php /var/www/html/laravel-crm/artisan migrate --force > /dev/null 2>&1
@@ -28513,10 +29215,10 @@ while true; do
                 STACK_NAME="evolution_v2${opcao2:+_$opcao2}"
 
                 if grep -q "Token: .\+" /root/dados_vps/dados_portainer; then
-                    ferramenta_evolution_v2$
+                    ferramenta_evolution_v2 "opcao2"
                 else
                     APP_ORION="ferramenta_evolution_v2${opcao2:+_$opcao2}"
-                    ferramenta_evolution_v2$
+                    ferramenta_evolution_v2 "$opcao2"
                 fi
 
                 ## FIM TOKEN
@@ -28535,10 +29237,32 @@ while true; do
                 STACK_NAME="evolution_lite${opcao2:+_$opcao2}"
 
                 if grep -q "Token: .\+" /root/dados_vps/dados_portainer; then
-                    ferramenta_evolution_lite
+                    ferramenta_evolution_lite "$opcao2"
                 else
                     APP_ORION="ferramenta_evolution_lite${opcao2:+_$opcao2}"
-                    ferramenta_evolution_lite
+                    ferramenta_evolution_lite "$opcao2"
+                fi
+
+                ## FIM TOKEN
+
+            fi   
+            ;;
+        
+        transcrevezap)
+
+            verificar_stack "transcrevezap${opcao2:+_$opcao2}" && continue || echo ""
+
+            if verificar_docker_e_portainer_traefik; then
+
+                ## INICIO TOKEN
+
+                STACK_NAME="transcrevezap${opcao2:+_$opcao2}"
+
+                if grep -q "Token: .\+" /root/dados_vps/dados_portainer; then
+                    ferramenta_transcrevezap "$opcao2"
+                else
+                    APP_ORION="transcrevezap${opcao2:+_$opcao2}"
+                    ferramenta_transcrevezap "$opcao2"
                 fi
 
                 ## FIM TOKEN
