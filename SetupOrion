@@ -15687,7 +15687,7 @@ services:
 ## --------------------------- ORION --------------------------- ##
 
   dify${1:+_$1}_api:
-    image: langgenius/dify-api:0.15.3 ## Versão do Dify
+    image: langgenius/dify-api:1.0.0 ## Versão do Dify
 
     volumes:
       - dify${1:+_$1}_storage:/app/api/storage
@@ -15698,6 +15698,7 @@ services:
     environment:
       ## Modo da execução
       - MODE=api
+      - INNER_API_KEY_FOR_PLUGIN=QaHbTe77CtuXmsfyhR7+vRjI/+XbV1AaFy691iy+kGDv2Jvy0/eAh8Y1
 
       ## Logs
       - LOG_LEVEL=INFO
@@ -15761,13 +15762,9 @@ services:
       - CODE_MAX_DEPTH=5
       - CODE_MAX_PRECISION=20
       - CODE_MAX_STRING_LENGTH=80000
-      - TEMPLATE_TRANSFORM_MAX_LENGTH=80000
       - CODE_MAX_STRING_ARRAY_LENGTH=30
       - CODE_MAX_OBJECT_ARRAY_LENGTH=30
       - CODE_MAX_NUMBER_ARRAY_LENGTH=1000
-      - CODE_EXECUTION_CONNECT_TIMEOUT=10
-      - CODE_EXECUTION_READ_TIMEOUT=60
-      - CODE_EXECUTION_WRITE_TIMEOUT=10
 
       ## Others Configuration
       - INDEXING_MAX_SEGMENTATION_TOKENS_LENGTH=4000
@@ -15837,6 +15834,12 @@ services:
     environment:
       ## Modo da execução
       - MODE=worker
+      - MARKETPLACE_API_URL=https://marketplace.dify.ai
+      - MARKETPLACE_URL=https://marketplace.dify.ai
+      - TOP_K_MAX_VALUE=10
+      - INDEXING_MAX_SEGMENTATION_TOKENS_LENGTH=4000
+      - PM2_INSTANCES=2
+      - INNER_API_KEY_FOR_PLUGIN=QaHbTe77CtuXmsfyhR7+vRjI/+XbV1AaFy691iy+kGDv2Jvy0/eAh8Y1
 
       ## Logs
       - LOG_LEVEL=INFO
@@ -15972,6 +15975,42 @@ services:
           memory: 4096M
 
 ## --------------------------- ORION --------------------------- ##
+  plugin_daemon:
+    image: langgenius/dify-plugin-daemon:0.0.3-local
+    restart: always
+
+    environment:
+      # Use the shared environment variables.
+      DB_DATABASE= dify_plugin
+      SERVER_PORT= 5002
+      SERVER_KEY = lYkiYYT6owG+71oLerGzA7GXCgOT++6ovaezWAjpCjf+Sjc3ZtU+qUEi
+      MAX_PLUGIN_PACKAGE_SIZE= 52428800
+      PPROF_ENABLED= false
+      DIFY_INNER_API_URL = http://api:5001
+      DIFY_INNER_API_KEY = QaHbTe77CtuXmsfyhR7+vRjI/+XbV1AaFy691iy+kGDv2Jvy0/eAh8Y1
+      PLUGIN_REMOTE_INSTALLING_HOST = 0.0.0.0
+      PLUGIN_REMOTE_INSTALLING_PORT = 5003
+      PLUGIN_WORKING_PATH = /app/storage/cwd
+      FORCE_VERIFYING_SIGNATURE = true
+
+    volumes:
+      - dify${1:+_$1}_plugin:/app/storage
+    
+    networks:
+      - $nome_rede_interna
+    
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager       
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4096M
+
+## --------------------------- ORION --------------------------- ##
 
   dify${1:+_$1}_weaviate:
     image: semitechnologies/weaviate:latest ## Versão do Weaviate
@@ -16020,6 +16059,9 @@ volumes:
   dify${1:+_$1}_weaviate:
     external: true
     name: dify${1:+_$1}_weaviate
+  dify${1:+_$1}_plugin:
+    external: true
+    name: dify${1:+_$1}_plugin
 
 networks:
   $nome_rede_interna:
