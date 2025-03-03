@@ -3040,57 +3040,63 @@ sleep 1
 
 sudo apt-get update > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "1/9 - [ OK ] - Update"
+    echo "01/10 - [ OK ] - Update"
 else
-    echo "1/9 - [ OFF ] - Update"
+    echo "01/10 - [ OFF ] - Update"
 fi
 sudo apt upgrade -y > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "2/9 - [ OK ] - Upgrade"
+    echo "02/10 - [ OK ] - Upgrade"
 else
-    echo "2/9 - [ OFF ] - Upgrade"
+    echo "02/10 - [ OFF ] - Upgrade"
 fi
 sudo timedatectl set-timezone America/Sao_Paulo > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "3/9 - [ OK ] - Timezone"
+    echo "03/10 - [ OK ] - Timezone"
 else
-    echo "3/9 - [ OFF ] - Timezone"
+    echo "03/10 - [ OFF ] - Timezone"
 fi
 sudo apt-get install -y apt-utils > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "4/9 - [ OK ] - Apt-Utils"
+    echo "04/10 - [ OK ] - Apt-Utils"
 else
-    echo "4/9 - [ OFF ] - Apt-Utils"
+    echo "04/10 - [ OFF ] - Apt-Utils"
 fi
 sudo apt-get update > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "5/9 - [ OK ] - Update"
+    echo "05/10 - [ OK ] - Update"
 else
-    echo "5/9 - [ OFF ] - Update"
+    echo "05/10 - [ OFF ] - Update"
 fi
 hostnamectl set-hostname $nome_servidor > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "6/9 - [ OK ] - Set Hostname"
+    echo "06/10 - [ OK ] - Set Hostname"
 else
-    echo "6/9 - [ OFF ] - Set Hostname"
+    echo "06/10 - [ OFF ] - Set Hostname"
 fi
 sudo sed -i "s/127.0.0.1[[:space:]]localhost/127.0.0.1 $nome_servidor/g" /etc/hosts > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "7/9 - [ OK ] - Adicionando nome do servidor em etc/hosts"
+    echo "07/10 - [ OK ] - Adicionando nome do servidor em etc/hosts"
 else
-    echo "7/9 - [ OFF ] - Adicionando nome do servidor em etc/hosts"
+    echo "07/10 - [ OFF ] - Adicionando nome do servidor em etc/hosts"
 fi
 sudo apt-get update > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "8/9 - [ OK ] - Update"
+    echo "08/10 - [ OK ] - Update"
 else
-    echo "8/9 - [ OFF ] - Update"
+    echo "08/10 - [ OFF ] - Update"
 fi
 sudo apt-get install -y apparmor-utils > /dev/null 2>&1
 if [ $? -eq 0 ]; then
-    echo "9/9 - [ OK ] - Apparmor-Utils"
+    echo "09/10 - [ OK ] - Apparmor-Utils"
 else
-    echo "9/9 - [ OFF ] - Apparmor-Utils"
+    echo "09/10 - [ OFF ] - Apparmor-Utils"
+fi
+sudo apt-get install -y jq > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "10/10 - [ OK ] - jq"
+else
+    echo "10/10 - [ OFF ] - jq"
 fi
 echo ""
 
