@@ -2335,6 +2335,25 @@ verificar_container_postgres() {
     fi
 }
 
+verificar_container_postgres_versao() {
+    # c3689bca68c6
+    # docker exec -it c3689bca68c6 psql -U postgres -c "SELECT version();"
+    # Obtém o ID do contêiner com base no nome
+    CONTAINER_ID=$(docker ps -q --filter "name=postgres_postgres")
+
+    # Verifica se o contêiner está rodando
+    if [ -z "$CONTAINER_ID" ]; then
+        echo "PostgreSQL não está rodando."
+        return 1
+    fi
+
+    # Obtém a versão do PostgreSQL
+    VERSION=$(docker exec -it "$CONTAINER_ID" psql -U postgres -t -c "SELECT version();" | awk '{print $2}')
+
+    # Exibe a versão
+    echo "Versão do PostgreSQL: $VERSION"
+}
+
 ## Verificar Container PgVector
 
 verificar_container_pgvector() {
