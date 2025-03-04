@@ -16082,7 +16082,7 @@ services:
       PM2_INSTANCES: 2
     
     networks:
-      - MarioNet
+      - $nome_rede_interna
     
     deploy:
       mode: replicated
@@ -16150,7 +16150,7 @@ services:
       - dify${1:+_$1}_weaviate:/var/lib/weaviate
     
     networks:
-      - MarioNet
+      - $nome_rede_interna
     
     deploy:
       mode: replicated
