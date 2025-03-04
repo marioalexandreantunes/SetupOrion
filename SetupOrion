@@ -15902,13 +15902,10 @@ x-shared-env: &shared-api-worker-env
   APP_API_URL: https://$url_dify_api
   FILES_URL: https://$url_dify_api
   # LOGS
-  #DEBUG: false
-  #FLASK_DEBUG: false
   LOG_LEVEL: INFO
   LOG_FILE: /app/logs/server.log
   LOG_FILE_MAX_SIZE: 20
   LOG_FILE_BACKUP_COUNT: 5
-  #LOG_DATEFORMAT: %Y-%m-%d %H:%M:%S
   LOG_TZ: UTC
   # API
   SECRET_KEY: $secret_key
@@ -15932,8 +15929,6 @@ x-shared-env: &shared-api-worker-env
   # EMAIL
   MAIL_TYPE: smtp
   MAIL_DEFAULT_SEND_FROM: $email_dify (eg=no-reply $email_dify)
-  #RESEND_API_URL: https://api.resend.com
-  #RESEND_API_KEY: your-resend-api-key
   SMTP_SERVER: $smtp_email_dify
   SMTP_PORT: $porta_smtp_dify
   SMTP_USERNAME: $user_email_dify
@@ -15943,6 +15938,20 @@ x-shared-env: &shared-api-worker-env
   INDEXING_MAX_SEGMENTATION_TOKENS_LENGTH: 4000
   INVITE_EXPIRY_HOURS: 72
   RESET_PASSWORD_TOKEN_EXPIRY_MINUTES: 5
+  # SANDBOX
+  CODE_EXECUTION_ENDPOINT: http://dify${1:+_$1}_sandbox:8194
+  CODE_EXECUTION_API_KEY: dify-sandbox
+  CODE_MAX_NUMBER: 9223372036854775807
+  CODE_MIN_NUMBER: -9223372036854775808
+  CODE_MAX_DEPTH: 5
+  CODE_MAX_PRECISION: 20
+  CODE_MAX_STRING_LENGTH: 80000
+  CODE_MAX_STRING_ARRAY_LENGTH: 30
+  CODE_MAX_OBJECT_ARRAY_LENGTH: 30
+  CODE_MAX_NUMBER_ARRAY_LENGTH: 1000
+  CODE_EXECUTION_CONNECT_TIMEOUT: 10
+  CODE_EXECUTION_READ_TIMEOUT: 60
+  CODE_EXECUTION_WRITE_TIMEOUT: 10
   # POSTGRES
   MIGRATION_ENABLED: "true"
   DB_USERNAME: postgres
@@ -15973,7 +15982,7 @@ x-shared-env: &shared-api-worker-env
   S3_BUCKET_NAME: dify${1:+-$1}
   S3_ACCESS_KEY: $S3_ACCESS_KEY
   S3_SECRET_KEY: $S3_SECRET_KEY
-  #S3_USE_AWS_MANAGED_IAM: false
+  S3_USE_AWS_MANAGED_IAM: "false"
   MAX_SUBMIT_COUNT: 100
   TOP_K_MAX_VALUE: 10
   # PLUGIN
@@ -16106,6 +16115,32 @@ services:
         - traefik.http.middlewares.corsMiddleware.headers.accessControlAllowHeaders=Content-Type,Authorization
 
   ## --------------------------- ORION --------------------------- ##
+
+  dify${1:+_$1}_sandbox:
+    image: langgenius/dify-sandbox:0.2.10
+
+    networks:
+      - $nome_rede_interna
+    
+    environment:
+      API_KEY: $sandbox_key
+      GIN_MODE: release
+      WORKER_TIMEOUT: 15
+      ENABLE_NETWORK: "true"
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "2"
+          memory: 4096M
+  
+  ## --------------------------- ORION --------------------------- ##
+
   dify${1:+_$1}_plugin_daemon:
     image: langgenius/dify-plugin-daemon:0.0.3-local
 
@@ -16175,6 +16210,7 @@ networks:
   $nome_rede_interna:
     external: true
     name: $nome_rede_interna
+
 EOL
 if [ $? -eq 0 ]; then
     echo "1/10 - [ OK ] - Criando Stack"
