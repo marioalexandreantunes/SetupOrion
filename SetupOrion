@@ -3551,7 +3551,14 @@ services:
     environment:
       ## Senha do postgres 
       - POSTGRES_PASSWORD=$senha_postgres
-      - PG_MAX_CONNECTIONS=500
+      
+    command: >
+      postgres
+      -c max_connections=100
+      -c shared_buffers=128MB
+      -c work_mem=4MB
+      -c maintenance_work_mem=64MB
+      -c effective_cache_size=4096MB
 
     deploy:
       mode: replicated
@@ -3562,7 +3569,7 @@ services:
       resources:
         limits:
           cpus: "1"
-          memory: 1024M
+          memory: 2048M
 
 ## --------------------------- ORION --------------------------- ##
 
